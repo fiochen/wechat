@@ -1,4 +1,4 @@
-// +build linux,cgo,msgaudit
+// +build linux
 
 //Package msgaudit only for linux
 package msgaudit
