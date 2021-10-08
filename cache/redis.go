@@ -23,17 +23,16 @@ type RedisOpts struct {
 }
 
 // NewRedis 实例化
-func NewRedis(opts *RedisOpts, dialOpts ...redis.DialOption) *Redis {
+func NewRedis(opts *RedisOpts) *Redis {
 	pool := &redis.Pool{
 		MaxActive:   opts.MaxActive,
 		MaxIdle:     opts.MaxIdle,
 		IdleTimeout: time.Second * time.Duration(opts.IdleTimeout),
 		Dial: func() (redis.Conn, error) {
-			dialOpts = append(dialOpts, []redis.DialOption{
+			return redis.Dial("tcp", opts.Host,
 				redis.DialDatabase(opts.Database),
 				redis.DialPassword(opts.Password),
-			}...)
-			return redis.Dial("tcp", opts.Host, dialOpts...)
+			)
 		},
 		TestOnBorrow: func(conn redis.Conn, t time.Time) error {
 			if time.Since(t) < time.Minute {
