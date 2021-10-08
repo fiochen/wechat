@@ -2,9 +2,9 @@ name: Go
 
 on:
   push:
-    branches: [ master,release-*,v2 ]
+    branches: [ master,release-* ]
   pull_request:
-    branches: [ master,release-*,v2 ]
+    branches: [ master,release-* ]
 
 jobs:
   golangci:
