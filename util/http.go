@@ -2,7 +2,6 @@ package util
 
 import (
 	"bytes"
-	"context"
 	"crypto/tls"
 	"encoding/json"
 	"encoding/pem"
@@ -20,16 +19,7 @@ import (
 
 // HTTPGet get 请求
 func HTTPGet(uri string) ([]byte, error) {
-	return HTTPGetContext(context.Background(), uri)
-}
-
-// HTTPGetContext get 请求
-func HTTPGetContext(ctx context.Context, uri string) ([]byte, error) {
-	request, err := http.NewRequestWithContext(ctx, http.MethodGet, uri, nil)
-	if err != nil {
-		return nil, err
-	}
-	response, err := http.DefaultClient.Do(request)
+	response, err := http.Get(uri)
 	if err != nil {
 		return nil, err
 	}
@@ -43,17 +33,8 @@ func HTTPGetContext(ctx context.Context, uri string) ([]byte, error) {
 
 // HTTPPost post 请求
 func HTTPPost(uri string, data string) ([]byte, error) {
-	return HTTPPostContext(context.Background(), uri, data)
-}
-
-// HTTPPostContext post 请求
-func HTTPPostContext(ctx context.Context, uri string, data string) ([]byte, error) {
 	body := bytes.NewBuffer([]byte(data))
-	request, err := http.NewRequestWithContext(ctx, http.MethodPost, uri, body)
-	if err != nil {
-		return nil, err
-	}
-	response, err := http.DefaultClient.Do(request)
+	response, err := http.Post(uri, "", body)
 	if err != nil {
 		return nil, err
 	}
