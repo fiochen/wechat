@@ -6,7 +6,6 @@ import (
 	"encoding/base64"
 	"encoding/json"
 	"errors"
-	"fmt"
 
 	"github.com/silenceper/wechat/v2/miniprogram/context"
 )
@@ -90,9 +89,6 @@ func GetCipherText(sessionKey, encryptedData, iv string) ([]byte, error) {
 	ivBytes, err := base64.StdEncoding.DecodeString(iv)
 	if err != nil {
 		return nil, err
-	}
-	if len(ivBytes) != aes.BlockSize {
-		return nil, fmt.Errorf("bad iv length %d", len(ivBytes))
 	}
 	block, err := aes.NewCipher(aesKey)
 	if err != nil {
