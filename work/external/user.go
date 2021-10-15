@@ -61,7 +61,7 @@ type FollowUser struct {
 	Tags           []FollowUserTag `json:"tags,omitempty"`
 	RemarkCorpName string          `json:"remark_corp_name,omitempty"`
 	RemarkMobiles  []string        `json:"remark_mobiles,omitempty"`
-	OpenUserID     string          `json:"open_userid,omitempty"`
+	OperUserID     string          `json:"oper_userid,omitempty"`
 	AddWay         int             `json:"add_way"`
 	State          string          `json:"state,omitempty"`
 }
